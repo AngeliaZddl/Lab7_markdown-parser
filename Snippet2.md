@@ -2,4 +2,4 @@
 
 [a nested parenthesized url](a.com(()))
 
-[some escaped \[ brackets \]](example.com)
+[some escaped [ brackets ]](example.com)
