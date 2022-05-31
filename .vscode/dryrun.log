@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/angeliaz/Documents/GitHub/Lab7_markdown-parser'
+javac -g -cp lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:lib/commonmark-0.18.1.jar:. MarkdownParse.java
+javac -g -cp lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:lib/commonmark-0.18.1.jar:. MarkdownParseTest.java
+make: Leaving directory `/Users/angeliaz/Documents/GitHub/Lab7_markdown-parser'
+ 
