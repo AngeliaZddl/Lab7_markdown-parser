@@ -13,31 +13,49 @@ public class MarkdownParse {
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
             int openBracket = markdown.indexOf("[", currentIndex);
-            if (markdown.substring(openBracket-1, openBracket+1).equals("![")) {
-                int closeParen = markdown.indexOf(")", openBracket);
-                currentIndex = closeParen + 1;
-                continue;
-            }
             int closeBracket = markdown.indexOf("]", openBracket);
-            if (closeBracket < 0 ) break;
             int openParen = markdown.indexOf("(", closeBracket);
             int closeParen = markdown.indexOf(")", openParen);
-            if (openParen+1 == closeParen) {
-                currentIndex = closeParen + 1;
-                continue;
-            }
-            toReturn.add(markdown.substring(openParen + 1, closeParen));
-            currentIndex = closeParen + 1;
-        }
 
+            int openBrackPrevIndex = openBracket-1;
+            // System.out.println(markdown.substring(openParen + 1, closeParen));
+            // check if escape character
+            if (openBracket == -1 || closeBracket ==-1 || openParen == -1 || closeParen == -1){
+                break;
+            }
+
+            if (openBrackPrevIndex >=0 && (
+            markdown.substring(openBrackPrevIndex, openBracket).equals("!") || markdown.substring(openBrackPrevIndex, openBracket).equals("\\"))) {
+                // System.out.println("image");
+                // Math.max(openBracket,closeBracket, openParen,closePare/n);
+            }
+            else if (openBracket + 1 == closeBracket) {}
+            else if (openParen + 1 == closeParen) {          
+		currentIndex = closeParen + 1;
+                continue;}
+            else if (openBracket == 0) {
+                System.out.println("zero");
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
+            }
+            else if (closeBracket + 1 == openParen) {
+                // System.out.println("]( next to eachother");
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
+            }
+
+            // Cases gets triggered falsly. ONe is that it might trigger another case while it isn't a link. Faulty
+            currentIndex = closeParen + 1;
+            // System.out.println(currentIndex);
+        }
+        System.out.println(toReturn.toString());
         return toReturn;
     }
 
 
     public static void main(String[] args) throws IOException {
         Path fileName = Path.of(args[0]);
-        String contents = Files.readString(fileName);
-        ArrayList<String> links = getLinks(contents);
-        System.out.println(links);
+        String content = Files.readString(fileName);
+        ArrayList<String> links = getLinks(content);
+	    System.out.println(links);
     }
+    //Testing purpose 11111111
 }
